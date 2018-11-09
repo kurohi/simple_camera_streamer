@@ -12,9 +12,8 @@ def index():
 def gen(camera):
     """Video streaming generator function."""
     for frame in camera.grabFrame():
-        cv2.imwrite('tmp/t.jpg', frame)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open('tmp/t.jpg', 'rb').read() + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""

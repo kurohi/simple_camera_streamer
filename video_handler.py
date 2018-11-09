@@ -10,6 +10,6 @@ class VideoHandler(object):
         while(True):
             ret, image = self.handler.read()
             if ret == True:
-                yield image
+                yield cv2.imencode('.jpg', image)[1].tobytes()
             else:
                 return False
